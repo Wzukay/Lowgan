@@ -153,7 +153,7 @@ This repository includes all resources needed to build, understand, and replicat
     │   └── 📁 task3.py
     ├── 📁 Team Photos/         # Project documentation photos
     ├── 📁 Video/               # Vehicle demonstration recordings
-    ├── 📁 Wiring/              # Electrical diagrams and schematics
+    ├── 📁 Other/              # Electrical diagrams and schematics
     └── 📄 README.md            # Project documentation
 
 ## 🛠️ Engineering Highlights
