@@ -29,7 +29,7 @@ The software driving the vehicle includes several Python-based modules for motor
         - L298N Motor Driver: Controls the rear 6V DC motor using PWM for speed and direction control
         - SG90 Servo Motor: Attached to the front wheels, controls the steering angle using PWM
         - Camera Module: Provides real-time video for computer vision-based navigation
-        - TCS34725 Color Sensor**: Detects color transitions on the mat to signal task changes and assists with navigation
+        - TCS34725 Color Sensor: Detects color transitions on the mat to signal task changes and assists with navigation
         - Power Supply: A regulated battery pack powers the entire vehicle
         - 3D Chassis: 3D printed using custom-designed STL files available in the `/3D Models` folder
 
@@ -37,7 +37,7 @@ The software driving the vehicle includes several Python-based modules for motor
 The codebase is structured into several modules, each responsible for a key aspect of the vehicle’s behavior:
 
 ## 🔁 System Integration
-The Raspberry Pi 5 runs Raspberry Pi OS, and all scripts are written in Python 3.
+    The Raspberry Pi 5 runs Raspberry Pi OS, and all scripts are written in Python 3.
     The modules interact as follows:
         Camera Input + Color Sensor Input -- > Sensor Fusion --> Vision Processing --> Motion Planning & Decisions per Task --> Servo Motor + DC Motor Controller
 
