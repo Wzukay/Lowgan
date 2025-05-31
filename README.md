@@ -51,6 +51,7 @@ Physics and Motor Control:
 
 ## 🛠️ 3D Modeling Workflow
 Lowgan’s mechanical parts were designed using two tools:
+
     - OpenSCAD: Script-based parametric modeling for core chassis parts, enabling version control and precise STL exports.
     - Tinkercad: Browser-based tool for quick prototyping and supplementary parts like sensor mounts and brackets.
 
@@ -77,16 +78,13 @@ Mobility Features:
 
 ## 🧱 Obstacle Detection and Avoidance
 Lowgan uses classical computer vision (OpenCV) for real-time obstacle detection:
-    Camera: Front-mounted Raspberry Pi camera module captures video feed.
 
+    Camera: Front-mounted Raspberry Pi camera module captures video feed.
     Vision Processing:
-    
         - Edge detection (Canny) to find contours.
         - Color thresholding (HSV filtering) to detect obstacles by color.
         - Contour analysis to estimate object size and location.
-
     Reactive Logic:
-
         - Stop immediately if obstacle detected.
         - Choose clear path direction by evaluating obstacle density.
         - Reverse and try alternate routes if blocked.
@@ -118,12 +116,14 @@ Lowgan software is modular and Python-based:
     - task3.py: Combines obstacle avoidance with lateral parking using vision and color data.
 
 task1.py Key Points:
+
     - Uses TCS3200 color sensor and servo motor to detect colors (orange, blue, white).
     - Controls servo steering based on color detection.
     - Runs DC motor forward or backward according to color.
     - Implements continuous loop with clean exit on interrupt.
 
 task2.py Key Points:
+
     - Processes live camera feed via OpenCV to detect red and green objects.
     - Controls servo based on dominant color detected.
     - Motor speed and direction controlled via PWM.
@@ -131,6 +131,7 @@ task2.py Key Points:
     - Runs continuously with graceful shutdown.
 
 task3.py Key Points:
+
     - Real-time color tracking of red and green objects.
     - Implements three operational states:
         State 0: Visual detection only.
