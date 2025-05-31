@@ -43,7 +43,7 @@ The modules interact as follows:
 
 
 ## 💻 Code Overview
-    The software driving the Lowgan autonomous vehicle is organized into modular Python scripts to ensure maintainability, scalability, and clarity. The codebase is designed to interface directly with the vehicle’s hardware components, process sensory data, and implement AI-based navigation logic for each stage of the challenge.
+The software driving the Lowgan autonomous vehicle is organized into modular Python scripts to ensure maintainability, scalability, and clarity. The codebase is designed to interface directly with the vehicle’s hardware components, process sensory data, and implement AI-based navigation logic for each stage of the challenge.
 
     task1.py : 
         This Python script interfaces with a TCS3200 color sensor connected to a Raspberry Pi (using the lgpio library) to detect colors and control a servo motor based on the detected color.
@@ -147,16 +147,16 @@ Camera Module:
     Use the CSI port on Raspberry Pi -> Direct ribbon connection to Pi
 
 ##  📦 Folder Structure
-📁 Lowgan/
-├── 📁 3D Models/           # STL files for chassis and mounting
-├── 📁 Source/
-│   ├── 📁 task1.py
-│   ├── 📁 task2.py
-│   └── 📁 task3.py
-├── 📁 Team Photos/         # Documentation photos
-├── 📁 Video/               # Recording of the vehicle in action
-├── 📁 Wiring/              # Diagrams and schematics
-└── 📄 README.md            # Project description and documentation
+    📁 Lowgan/
+    ├── 📁 3D Models/           # STL files for chassis and mounting
+    ├── 📁 Source/
+    │   ├── 📁 task1.py
+    │   ├── 📁 task2.py
+    │   └── 📁 task3.py
+    ├── 📁 Team Photos/         # Documentation photos
+    ├── 📁 Video/               # Recording of the vehicle in action
+    ├── 📁 Wiring/              # Diagrams and schematics
+    └── 📄 README.md            # Project description and documentation
 
 ## 🧠 Learning Impact
 This project is a practical implementation of autonomous robotics concepts including:
