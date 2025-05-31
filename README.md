@@ -35,6 +35,7 @@ Lowgan combines precision hardware with flexible embedded software. The complete
 
 ## 🔬 Research and Engineering Considerations
 Designing Lowgan involved comprehensive research and engineering analysis to ensure realistic, stable, and efficient autonomous navigation on a small scale. Key aspects included:
+
     - Steering and Vehicle Dynamics
         Steering Geometry:
             Careful study of steering mechanisms was conducted to emulate real-world vehicle behavior. This included analysis of:
@@ -60,6 +61,7 @@ Designing Lowgan involved comprehensive research and engineering analysis to ens
 
 ## 🛠️ 3D Model Design and Development
 The mechanical chassis and mounting parts of Lowgan were carefully designed to meet the project’s precision and functionality requirements using two complementary CAD tools:
+
     - OpenSCAD:
         Lowgan’s core structural components were modeled in OpenSCAD, a script-based 3D modeling software. This allowed the team to:
         Use parametric design principles, enabling easy adjustments of dimensions and shapes through code.
