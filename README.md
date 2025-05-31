@@ -131,20 +131,20 @@ The software driving the Lowgan autonomous vehicle is organized into modular Pyt
                 This code serves as a basic framework for color-responsive robotics, enabling real-time color tracking with corresponding mechanical responses, suitable for educational projects or prototype systems involving color-based navigation or interaction.
 
 ## 🧱 Hardware Wiring
-L298N Motor Driver:
-    IN1, IN2 to Raspberry Pi GPIO pins -> Controls motor direction
-    ENA connected through PWM -> Controls motor speed
-    6V DC motor connected to OUT1 and OUT2
+    L298N Motor Driver:
+        IN1, IN2 to Raspberry Pi GPIO pins -> Controls motor direction
+        ENA connected through PWM -> Controls motor speed
+        6V DC motor connected to OUT1 and OUT2
 
-Servo Motor:
-    PWM control wire connected to Raspberry Pi PWM pin -> Front-wheel steering control
-    Powered from 5V rail
+    Servo Motor:
+        PWM control wire connected to Raspberry Pi PWM pin -> Front-wheel steering control
+        Powered from 5V rail
 
-Color Sensor:
-    Connect via I2C (SDA, SCL) -> Color detection to switch tasks
+    Color Sensor:
+        Connect via I2C (SDA, SCL) -> Color detection to switch tasks
 
-Camera Module:
-    Use the CSI port on Raspberry Pi -> Direct ribbon connection to Pi
+    Camera Module:
+        Use the CSI port on Raspberry Pi -> Direct ribbon connection to Pi
 
 ##  📦 Folder Structure
     📁 Lowgan/
@@ -159,11 +159,11 @@ Camera Module:
     └── 📄 README.md            # Project description and documentation
 
 ## 🧠 Learning Impact
-This project is a practical implementation of autonomous robotics concepts including:
-    - PID control and PWM
-    - Computer vision using OpenCV
-    - Embedded I2C sensor integration
-    - Parallel parking and navigation logic
-    - Task switching based on environmental cues
+    This project is a practical implementation of autonomous robotics concepts including:
+        - PID control and PWM
+        - Computer vision using OpenCV
+        - Embedded I2C sensor integration
+        - Parallel parking and navigation logic
+        - Task switching based on environmental cues
 
 It bridges theory and practice in AI-driven mechatronics and provides a hands-on learning experience in robotics and embedded systems.
