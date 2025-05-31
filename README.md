@@ -58,19 +58,19 @@ Lowgan’s mechanical parts were designed using two tools:
 Models are exported as STL files and stored in /3D Models. Modular design allows easy replacement and customization. Parts are printed in PLA filament, balancing weight and strength.
 
 ## 🚗 Mobility Management
-Components:
+- Components:
 
     - DC Motor: Drives rear wheels, powered by Li-ion battery, controlled by PWM signals.
     - L298N Motor Driver: Interfaces motor with Raspberry Pi, managing speed and direction.
     - Raspberry Pi 5: Processes commands and sensor data to control motion.
 
-Control Logic:
+- Control Logic:
 
     - Motor speed controlled dynamically via PWM.
     - Direction managed by GPIO pins, enabling forward, reverse, and turns.
     - Supports scripted autonomous routines or remote manual control.
 
-Mobility Features:
+- Mobility Features:
 
     - Differential drive system for sharp turns.
     - Speed limiting to prevent overload.
@@ -92,11 +92,11 @@ Lowgan uses classical computer vision (OpenCV) for real-time obstacle detection:
 No heavy AI models are required; the system relies on lightweight, real-time CV.
 
 ## ⚡ Power and Sensor Integration
-Powered by a Li-ion battery with regulated voltage.
-Raspberry Pi manages computing and sensor operation.
-Motor driver supplies power to the DC motor.
-Color sensor (TCS34725) and servo motor powered directly from Pi.
-Battery management ensures stable and safe power delivery.
+- Powered by a Li-ion battery with regulated voltage.
+- Raspberry Pi manages computing and sensor operation.
+- Motor driver supplies power to the DC motor.
+- Color sensor (TCS34725) and servo motor powered directly from Pi.
+- Battery management ensures stable and safe power delivery.
 
 ## 🔁 System Integration
 Runs Raspberry Pi OS on Raspberry Pi 5.
@@ -174,15 +174,15 @@ Camera Module:
     └── README.md            # Project documentation
 
 ## 🛠️ Engineering Highlights
-**System Design**: Embedded Raspberry Pi controller running vision processing and motor control.
-**Power System**: Efficient LiPo battery with proper voltage regulation.
-**Motor Control**: PWM-based speed and direction via L298N driver.
-**Obstacle Detection**: Camera-based with lightweight OpenCV processing.
-**Mechanical**: Lightweight 3D-printed chassis with balanced weight distribution.
-**Electrical**: Compact wiring with power isolation for reliability.
-**Software**: Modular Python scripts for maintainability and tuning.
-**Testing**: Independent and integrated testing ensures stable performance.
-**Calibration**: Simple routines adapt to light and surface variations.
+- **System Design**: Embedded Raspberry Pi controller running vision processing and motor control.
+- **Power System**: Efficient LiPo battery with proper voltage regulation.
+- **Motor Control**: PWM-based speed and direction via L298N driver.
+- **Obstacle Detection**: Camera-based with lightweight OpenCV processing.
+- **Mechanical**: Lightweight 3D-printed chassis with balanced weight distribution.
+- **Electrical**: Compact wiring with power isolation for reliability.
+- **Software**: Modular Python scripts for maintainability and tuning.
+- **Testing**: Independent and integrated testing ensures stable performance.
+- **Calibration**: Simple routines adapt to light and surface variations.
 
 ## 🧠 Learning Outcomes
 Lowgan is a hands-on robotics platform demonstrating:
