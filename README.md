@@ -92,11 +92,11 @@ Lowgan uses classical computer vision (OpenCV) for real-time obstacle detection:
 No heavy AI models are required; the system relies on lightweight, real-time CV.
 
 ## ⚡ Power and Sensor Integration
-- Powered by a Li-ion battery with regulated voltage.
-- Raspberry Pi manages computing and sensor operation.
-- Motor driver supplies power to the DC motor.
-- Color sensor (TCS34725) and servo motor powered directly from Pi.
-- Battery management ensures stable and safe power delivery.
+Powered by a Li-ion battery with regulated voltage.
+Raspberry Pi manages computing and sensor operation.
+Motor driver supplies power to the DC motor.
+Color sensor (TCS34725) and servo motor powered directly from Pi.
+Battery management ensures stable and safe power delivery.
 
 ## 🔁 System Integration
 Runs Raspberry Pi OS on Raspberry Pi 5.
@@ -115,14 +115,14 @@ Lowgan software is modular and Python-based:
     - task2.py: Camera-based obstacle detection and avoidance.
     - task3.py: Combines obstacle avoidance with lateral parking using vision and color data.
 
-task1.py Key Points:
+task1.py - Key Points:
 
     - Uses TCS3200 color sensor and servo motor to detect colors (orange, blue, white).
     - Controls servo steering based on color detection.
     - Runs DC motor forward or backward according to color.
     - Implements continuous loop with clean exit on interrupt.
 
-task2.py Key Points:
+task2.py - Key Points:
 
     - Processes live camera feed via OpenCV to detect red and green objects.
     - Controls servo based on dominant color detected.
@@ -130,7 +130,7 @@ task2.py Key Points:
     - Supports multiple operational states controlled by keyboard input.
     - Runs continuously with graceful shutdown.
 
-task3.py Key Points:
+task3.py - Key Points:
 
     - Real-time color tracking of red and green objects.
     - Implements three operational states:
@@ -174,15 +174,15 @@ Camera Module:
     └── README.md            # Project documentation
 
 ## 🛠️ Engineering Highlights
-    - System Design: Embedded Raspberry Pi controller running vision processing and motor control.
-    - Power System: Efficient LiPo battery with proper voltage regulation.
-    - Motor Control: PWM-based speed and direction via L298N driver.
-    - Obstacle Detection: Camera-based with lightweight OpenCV processing.
-    - Mechanical: Lightweight 3D-printed chassis with balanced weight distribution.
-    - Electrical: Compact wiring with power isolation for reliability.
-    - Software: Modular Python scripts for maintainability and tuning.
-    - Testing: Independent and integrated testing ensures stable performance.
-    - Calibration: Simple routines adapt to light and surface variations.
+**System Design**: Embedded Raspberry Pi controller running vision processing and motor control.
+**Power System**: Efficient LiPo battery with proper voltage regulation.
+**Motor Control**: PWM-based speed and direction via L298N driver.
+**Obstacle Detection**: Camera-based with lightweight OpenCV processing.
+**Mechanical**: Lightweight 3D-printed chassis with balanced weight distribution.
+**Electrical**: Compact wiring with power isolation for reliability.
+**Software**: Modular Python scripts for maintainability and tuning.
+**Testing**: Independent and integrated testing ensures stable performance.
+**Calibration**: Simple routines adapt to light and surface variations.
 
 ## 🧠 Learning Outcomes
 Lowgan is a hands-on robotics platform demonstrating:
