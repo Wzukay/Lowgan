@@ -33,14 +33,56 @@ The software driving the vehicle includes several Python-based modules for motor
         - Power Supply: A regulated battery pack powers the entire vehicle
         - 3D Chassis: 3D printed using custom-designed STL files available in the `/3D Models` folder
 
-## 🧰 Software Modules
-The codebase is structured into several modules, each responsible for a key aspect of the vehicle’s behavior:
+## 🔬 Research and Engineering Considerations
+    Designing Lowgan involved comprehensive research and engineering analysis to ensure realistic, stable, and efficient autonomous navigation on a small scale. Key aspects included:
+
+        - Steering and Vehicle Dynamics
+            Steering Geometry:
+                Careful study of steering mechanisms was conducted to emulate real-world vehicle behavior. This included analysis of:
+                    Ackermann steering principles to optimize turning radius and reduce tire slip.
+                    Steering servo calibration to achieve precise angular control over front wheels.
+                    Smooth transition dynamics for arc and lateral maneuvers, crucial for tasks like circular driving and parallel parking.
+
+            Center of Mass (CoM) Optimization:
+                Vehicle stability heavily depends on accurate placement of the center of mass. Research focused on:
+                Balancing component placement (battery, motors, electronics) to lower CoM for enhanced cornering and reduced tipping risk.
+                Ensuring symmetrical weight distribution to maintain predictable handling during obstacle avoidance and parking.
+        
+        - Physics of Motion and Motor Control
+            Drag and Rolling Resistance:
+                Aerodynamic drag and tire rolling resistance, though minimal at this scale, were considered to:
+                    Refine motor power requirements and battery life estimations.
+                    Improve control logic to handle speed variations caused by surface friction and minor slopes.
+
+            Inertial Effects and Momentum:
+                The system accounted for the vehicle’s inertia during acceleration and deceleration phases, ensuring:
+                    Timely steering corrections.
+                    Controlled stopping distances, critical during obstacle avoidance and parking sequences.
+
+## 🛠️ 3D Model Design and Development
+    The mechanical chassis and mounting parts of Lowgan were carefully designed to meet the project’s precision and functionality requirements using two complementary CAD tools:
+        - OpenSCAD:
+            Lowgan’s core structural components were modeled in OpenSCAD, a script-based 3D modeling software. This allowed the team to:
+            Use parametric design principles, enabling easy adjustments of dimensions and shapes through code.
+            Maintain version control on the model parameters for rapid iteration.
+            Generate precise, reproducible STL files suitable for 3D printing with high dimensional accuracy.
+
+        - Tinkercad:
+            Supplementary components and quick design prototypes were developed using Tinkercad, a browser-based, user-friendly 3D design platform. This approach provided:
+            Intuitive drag-and-drop modeling for smaller or decorative parts.
+            Rapid prototyping for mounting brackets and sensor housings.
+            Seamless export of STL files ready for integration with OpenSCAD models or direct 3D printing.
+
+    Workflow and Integration
+        Models created in OpenSCAD were exported as STL files and imported into Tinkercad when further modification or assembly visualization was needed.
+        Final STL files are organized in the /3D Models directory.
+        The modular design approach facilitates quick part replacement, upgrades, and customization depending on project needs or hardware changes.
+        3D printing these models used standard PLA filament, ensuring lightweight but durable chassis components optimized for the vehicle’s weight and maneuverability.
 
 ## 🔁 System Integration
     The Raspberry Pi 5 runs Raspberry Pi OS, and all scripts are written in Python 3.
     The modules interact as follows:
         Camera Input + Color Sensor Input -- > Sensor Fusion --> Vision Processing --> Motion Planning & Decisions per Task --> Servo Motor + DC Motor Controller
-
 
 ## 💻 Code Overview
 The software driving the Lowgan autonomous vehicle is organized into modular Python scripts to ensure maintainability, scalability, and clarity. The codebase is designed to interface directly with the vehicle’s hardware components, process sensory data, and implement AI-based navigation logic for each stage of the challenge.
