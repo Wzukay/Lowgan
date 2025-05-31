@@ -1,213 +1,195 @@
-# 🤖 Lowgan - AI-Powered Autonomous Vehicle Navigation System
-Welcome to the official repository of Lowgan, an advanced robotics solution developed for the WRO 2025 season. This project showcases the fusion of embedded intelligence, computer vision, and sensor integration in a custom-built robotic vehicle designed to autonomously navigate a defined game mat environment. Developed by a passionate team of robotics enthusiasts, Lowgan is capable of tackling real-world driving challenges at a small scale.
+## 🤖 Lowgan - AI-Powered Autonomous Vehicle Navigation System
+Welcome to the official repository of Lowgan, an advanced autonomous vehicle project developed for the WRO 2025 season. Lowgan integrates embedded intelligence, computer vision, and sensor fusion in a custom robotic car built on Raspberry Pi 5, designed to autonomously navigate a defined game mat. This system addresses realistic small-scale driving challenges through AI and real-time sensing.
 
-This repository contains all necessary resources to build, understand, and replicate the project: from hardware schematics and STL models, to Python-based control systems and AI modules.
+This repository includes all resources needed to build, understand, and replicate Lowgan: hardware schematics, 3D models, and Python-based control and AI modules.
 
-## 🧠 Project Description
-Lowgan is a small, AI-powered autonomous vehicle based on the Raspberry Pi 5 platform. The vehicle is designed to perform three sequential, progressively complex driving tasks, autonomously and without human intervention, using onboard computation and sensor feedback:
+## 🧠 Project Overview
+Lowgan is a compact AI-driven autonomous vehicle running on Raspberry Pi 5. It executes three progressive driving tasks autonomously, relying on onboard computing and sensors:
 
-1. **Stage 1 - Circular Driving Around the Center**:
-    The vehicle identifies the central landmark of the mat using color and visual cues.
-    It maintains a constant radius and direction while circling, ensuring smooth arc motion.
-    Control logic dynamically adjusts the steering servo and rear motor to stay on path.
+    - Stage 1: Circular Driving Around the Center
+        Detects the mat's center using color and visual cues.
+        Maintains a smooth circular path at a fixed radius.
+        Dynamically adjusts steering and motor speed for stability.
 
-2. **Stage 2 - Obstacle Avoidance**:
-    The vehicle detects cube-shaped obstacles on the mat using its front-mounted camera.
-    It calculates safe trajectories around these obstacles using computer vision and predefined rules.
-    Precision motor control prevents contact, and sensor fusion ensures safe real-time reactions.
+    - Stage 2: Obstacle Avoidance
+        Detects cube-shaped obstacles using front camera vision.
+        Calculates safe trajectories and avoids collisions in real time.
+        Uses sensor fusion and precise motor control for responsive maneuvering.
 
-3. **Stage 3 - Lateral Parking**:
-    The vehicle uses spatial awareness and side clearances to identify a parking zone.
-    It then performs a lateral (parallel) parking maneuver similar to real urban driving.
-    Vision input and color sensor feedback are used to measure space and initiate parking steps.
+    - Stage 3: Lateral Parking
+        Identifies parking zones using side clearances detected by vision and color sensors.
+        Executes lateral (parallel) parking similar to urban driving.
+        Combines vision input and sensor data to measure space and control parking steps.
 
-The software driving the vehicle includes several Python-based modules for motor control, image processing, and sensor data fusion.
+The vehicle’s software consists of modular Python scripts that manage motor control, image processing, and sensor fusion for autonomous navigation.
 
 ## 🔩 Hardware Components
-Lowgan combines precision hardware with flexible embedded software. The complete electromechanical setup includes:
+Lowgan integrates precise hardware with flexible software:
 
-    - Raspberry Pi 5: 	Main processor running Raspberry PI OS and all AI/logic systems
-    - L298N Motor Driver: Controls the rear 6V DC motor using PWM for speed and direction control
-    - SG90 Servo Motor: Attached to the front wheels, controls the steering angle using PWM
-    - Camera Module: Provides real-time video for computer vision-based navigation
-    - TCS34725 Color Sensor: Detects color transitions on the mat to signal task changes and assists with navigation
-    - Power Supply: A regulated battery pack powers the entire vehicle
-    - 3D Chassis: 3D printed using custom-designed STL files available in the `/3D Models` folder
+    - Raspberry Pi 5: Main processor running the OS and AI modules.
+    - L298N Motor Driver: Controls a 6V rear DC motor with PWM for speed and direction.
+    - SG90 Servo Motor: Steers the front wheels using PWM.
+    - Camera Module: Provides live video for computer vision.
+    - TCS34725 Color Sensor: Detects mat colors to trigger task transitions and aid navigation.
+    - Battery Pack: Regulated power supply for all components.
+    - 3D-Printed Chassis: Custom designed and printed from STL files (in /3D Models).
 
-## 🔬 Research and Engineering Considerations
-Designing Lowgan involved comprehensive research and engineering analysis to ensure realistic, stable, and efficient autonomous navigation on a small scale. Key aspects included:
+## 🔬 Engineering and Design Considerations
+Steering and Vehicle Dynamics:
 
-    - Steering and Vehicle Dynamics
-        Steering Geometry:
-            Careful study of steering mechanisms was conducted to emulate real-world vehicle behavior. This included analysis of:
-                Ackermann steering principles to optimize turning radius and reduce tire slip.
-                Steering servo calibration to achieve precise angular control over front wheels.
-                Smooth transition dynamics for arc and lateral maneuvers, crucial for tasks like circular driving and parallel parking.
+    - Steering Geometry: Based on Ackermann principles for realistic turning and minimized tire slip.
+    - Servo Calibration: Ensures precise front-wheel angle control.
+    - Smooth Transition Dynamics: Vital for circular driving and lateral parking maneuvers.
+Center of Mass (CoM) Optimization:
 
-        Center of Mass (CoM) Optimization:
-            Vehicle stability heavily depends on accurate placement of the center of mass. Research focused on:
-            Balancing component placement (battery, motors, electronics) to lower CoM for enhanced cornering and reduced tipping risk.
-            Ensuring symmetrical weight distribution to maintain predictable handling during obstacle avoidance and parking.
-            
-    - Physics of Motion and Motor Control
-        Drag and Rolling Resistance:
-            Aerodynamic drag and tire rolling resistance, though minimal at this scale, were considered to:
-                Refine motor power requirements and battery life estimations.
-                Improve control logic to handle speed variations caused by surface friction and minor slopes.
+    - Components arranged to lower the CoM, improving stability and reducing tipping risk.
+    - Symmetrical weight distribution for predictable handling during obstacle avoidance and parking.
+Physics and Motor Control:
 
-        Inertial Effects and Momentum:
-            The system accounted for the vehicle’s inertia during acceleration and deceleration phases, ensuring:
-                Timely steering corrections.
-                Controlled stopping distances, critical during obstacle avoidance and parking sequences.
+    - Drag and Rolling Resistance: Modeled to refine power usage and maintain consistent speed.
+    - Inertia and Momentum: Controlled acceleration and deceleration for accurate steering corrections and stopping.
 
-## 🛠️ 3D Model Design and Development
-The mechanical chassis and mounting parts of Lowgan were carefully designed to meet the project’s precision and functionality requirements using two complementary CAD tools:
+## 🛠️ 3D Modeling Workflow
+Lowgan’s mechanical parts were designed using two tools:
+    - OpenSCAD: Script-based parametric modeling for core chassis parts, enabling version control and precise STL exports.
+    - Tinkercad: Browser-based tool for quick prototyping and supplementary parts like sensor mounts and brackets.
 
-    - OpenSCAD:
-        Lowgan’s core structural components were modeled in OpenSCAD, a script-based 3D modeling software. This allowed the team to:
-        Use parametric design principles, enabling easy adjustments of dimensions and shapes through code.
-        Maintain version control on the model parameters for rapid iteration.
-        Generate precise, reproducible STL files suitable for 3D printing with high dimensional accuracy.
+Models are exported as STL files and stored in /3D Models. Modular design allows easy replacement and customization. Parts are printed in PLA filament, balancing weight and strength.
 
-    - Tinkercad:
-        Supplementary components and quick design prototypes were developed using Tinkercad, a browser-based, user-friendly 3D design platform. This approach provided:
-        Intuitive drag-and-drop modeling for smaller or decorative parts.
-        Rapid prototyping for mounting brackets and sensor housings.
-        Seamless export of STL files ready for integration with OpenSCAD models or direct 3D printing.
+## 🚗 Mobility Management
+Components:
 
-    Workflow and Integration
-        Models created in OpenSCAD were exported as STL files and imported into Tinkercad when further modification or assembly visualization was needed.
-        Final STL files are organized in the /3D Models directory.
-        The modular design approach facilitates quick part replacement, upgrades, and customization depending on project needs or hardware changes.
-        3D printing these models used standard PLA filament, ensuring lightweight but durable chassis components optimized for the vehicle’s weight and maneuverability.
+    - DC Motor: Drives rear wheels, powered by Li-ion battery, controlled by PWM signals.
+    - L298N Motor Driver: Interfaces motor with Raspberry Pi, managing speed and direction.
+    - Raspberry Pi 5: Processes commands and sensor data to control motion.
+
+Control Logic:
+
+    - Motor speed controlled dynamically via PWM.
+    - Direction managed by GPIO pins, enabling forward, reverse, and turns.
+    - Supports scripted autonomous routines or remote manual control.
+
+Mobility Features:
+
+    - Differential drive system for sharp turns.
+    - Speed limiting to prevent overload.
+    - Failsafe to stop motors on signal loss or faults.
+
+## 🧱 Obstacle Detection and Avoidance
+Lowgan uses classical computer vision (OpenCV) for real-time obstacle detection:
+    Camera: Front-mounted Raspberry Pi camera module captures video feed.
+
+    Vision Processing:
+    
+        - Edge detection (Canny) to find contours.
+        - Color thresholding (HSV filtering) to detect obstacles by color.
+        - Contour analysis to estimate object size and location.
+
+    Reactive Logic:
+
+        - Stop immediately if obstacle detected.
+        - Choose clear path direction by evaluating obstacle density.
+        - Reverse and try alternate routes if blocked.
+
+No heavy AI models are required; the system relies on lightweight, real-time CV.
+
+## ⚡ Power and Sensor Integration
+- Powered by a Li-ion battery with regulated voltage.
+- Raspberry Pi manages computing and sensor operation.
+- Motor driver supplies power to the DC motor.
+- Color sensor (TCS34725) and servo motor powered directly from Pi.
+- Battery management ensures stable and safe power delivery.
 
 ## 🔁 System Integration
-    The Raspberry Pi 5 runs Raspberry Pi OS, and all scripts are written in Python 3.
-    The modules interact as follows:
-        Camera Input + Color Sensor Input -- > Sensor Fusion --> Vision Processing --> Motion Planning & Decisions per Task --> Servo Motor + DC Motor Controller
+Runs Raspberry Pi OS on Raspberry Pi 5.
+Python scripts handle:
 
-## 💻 Code Overview
-The software driving the Lowgan autonomous vehicle is organized into modular Python scripts to ensure maintainability, scalability, and clarity. The codebase is designed to interface directly with the vehicle’s hardware components, process sensory data, and implement AI-based navigation logic for each stage of the challenge.
+    - Camera and color sensor input.
+    - Sensor fusion and vision processing.
+    - Motion planning and motor control.
 
-    task1.py : 
-        This Python script interfaces with a TCS3200 color sensor connected to a Raspberry Pi (using the lgpio library) to detect colors and control a servo motor based on the detected color.
+Modular architecture ensures clear data flow and easy maintenance.
 
-        Key Components:
-            - TCS3200 Color Sensor Pins:
-                PIN_S0 to PIN_S3 configure the sensor’s output frequency scaling and color filter selection.
-                PIN_OUT reads the frequency output corresponding to the intensity of the detected color.
+## 💻 Software Overview
+Lowgan software is modular and Python-based:
 
-            - Servo Motor:
-                Connected to GPIO18 and controlled via gpiozero.Servo.
-                Moves to different positions (left, center, right) based on the color detected.
+    - task1.py: Color-based circular navigation using TCS3200 sensor.
+    - task2.py: Camera-based obstacle detection and avoidance.
+    - task3.py: Combines obstacle avoidance with lateral parking using vision and color data.
 
-            - How It Works:
-                GPIO Setup:
-                    Opens GPIO chip 0 and sets sensor pins as inputs or outputs.
-                    Configures the sensor output frequency scaling to 100% (maximum frequency).
-                Color Reading:
-                    The sensor output frequency varies with the intensity of the detected color filtered by setting PIN_S2 and PIN_S3 to select red, green, or blue filters.
-                    The script cycles through red, green, and blue filters, measuring the output frequency for a short duration.
-                    Frequencies correspond roughly to the amount of each primary color detected.
-                Color Detection Logic:
-                    Compares the measured red, green, and blue frequencies.
-                    Uses a tolerance value to decide if the detected color is "ORANGE", "BLUE", or defaults to "WHITE".
-                    For example, if red frequency is significantly higher than blue, it classifies as ORANGE; if blue is higher than red but below a certain threshold, it's BLUE.
-                Servo Control:
-                    Based on the detected color:
-                        ORANGE: Servo rotates to the right position briefly then returns near center.
-                        BLUE: Servo rotates to the left position briefly then returns near center.
-                        WHITE: No servo movement.
-                DC Motor Control: Simultaneously, the DC motor runs in different directions based on color detection:
-                    Based on the detected color:
-                        ORANGE: Motor runs forward.
-                        BLUE: Motor runs backward.
-                        WHITE: Motor remains stopped.
-                Program Loop and Cleanup:
-                    Runs continuously, printing sensor readings and servo actions.
-                    Stops cleanly on a keyboard interrupt (Ctrl+C), detaches the servo, and closes GPIO resources.
+task1.py Key Points:
+    - Uses TCS3200 color sensor and servo motor to detect colors (orange, blue, white).
+    - Controls servo steering based on color detection.
+    - Runs DC motor forward or backward according to color.
+    - Implements continuous loop with clean exit on interrupt.
 
-        This program is useful for projects requiring simple color recognition and corresponding mechanical response, such as sorting objects by color or interactive color-based robotics.
+task2.py Key Points:
+    - Processes live camera feed via OpenCV to detect red and green objects.
+    - Controls servo based on dominant color detected.
+    - Motor speed and direction controlled via PWM.
+    - Supports multiple operational states controlled by keyboard input.
+    - Runs continuously with graceful shutdown.
 
-    task2.py :
-        This Python script uses OpenCV to detect red and green objects in a live video feed from a camera and controls a servo motor connected to a Raspberry Pi based on the detected colors.
+task3.py Key Points:
+    - Real-time color tracking of red and green objects.
+    - Implements three operational states:
+        State 0: Visual detection only.
+        State 1: Active motor and servo control based on detected colors.
+        State 2: Idle/no control.
+    - User input switches between states.
+    - Controls DC motor direction and servo position with PWM.
+    - Clean exit and resource release supported.
 
-            - The script captures frames from a camera and converts them to HSV color space to detect red and green colors using color thresholding.
-            - It identifies the largest contour of each color and draws bounding rectangles around detected objects.
-            - Depending on which color has a larger detected area, the script changes its internal state variable and displays corresponding text on the video feed.
-            - When in state 1, the script actively controls a servo motor:
-                If red is dominant, the servo turns fully right briefly.
-                If green is dominant, the servo turns fully left briefly.
-                If no dominant color is detected, the servo remains centered.
-            - The program supports switching between different states (0, 1, 2) using keyboard keys (e and f), though state 2 currently has no servo control implemented.
-            - The DC motor is controlled via GPIO pins with PWM to set speed and direction through a stepping sequence.
-            - The servo motor is controlled using PWM on a specified GPIO pin with defined pulse width ranges.
-            - The program runs continuously, displaying real-time video with overlays indicating detected colors and current state.
-            - The program supports graceful termination with the "q" key or Ctrl+C, ensuring proper cleanup by stopping the servo PWM, stopping the motor, releasing the camera, and  closing OpenCV windows.
+## 🧱 Hardware Wiring Summary
+L298N Motor Driver:
 
-        This setup could be useful for simple color-based object tracking and robotic control applications, such as guiding a servo to respond to color cues detected in real time.
+    - IN1, IN2: Raspberry Pi GPIO for motor direction.
+    - ENA: PWM for speed control.
+    - Connects to 6V DC motor.
 
-    task3.py : 
-        This Python program captures video from a camera and processes it in real time to detect red and green colors, using these detections to operate a servo motor and a DC motor connected to a Raspberry Pi.
+Servo Motor:
 
-        Main Features:
-            - Color Recognition:
-                Utilizing OpenCV, the program grabs video frames and converts them to the HSV color model. It isolates red and green objects through color filtering and contour analysis. Detected objects are highlighted with rectangles and labels shown on the video stream.
+    - PWM control to Raspberry Pi PWM pin.
+    - Powered from 5V rail.
 
-            - Operational Modes (States):
-                The script controls behavior based on a global state variable with three distinct modes:
-                    State 0: Scans for red and green but only shows detection visuals without moving motors. Detection triggers a switch to state 1.
-                    State 1: Actively manages motors. According to the dominant color:
-                        For red, the servo swings fully to the right momentarily, then returns to center, and the DC motor spins forward.
-                        For green, the servo moves fully left briefly, then centers, and the DC motor runs backward.
-                        If neither color is dominant, the servo centers and the DC motor halts.
-                    State 2: Reserved mode with no control over motors or servo.
+Color Sensor (TCS34725):
 
-            - Motor Management:
-                The DC motor direction is controlled via two GPIO output pins (IN1, IN2), while a PWM pin (ENA) modulates speed. The motor runs forward or backward by cycling through a predefined step pattern, with adjustable speed and timing.
-                The servo motor, connected to GPIO pin 18, is driven by PWM signals, allowing positions from full left, center, to full right.
+    - I2C connection (SDA, SCL).
 
-            - User Controls:
-                The keys e and f let the user cycle through the states to test or operate different functionalities.
-                The program can be exited cleanly by pressing q or interrupting with Ctrl+C, which stops PWM signals, releases the camera, and closes all OpenCV display windows.
+Camera Module:
 
-            - Use Cases:
-                This code serves as a basic framework for color-responsive robotics, enabling real-time color tracking with corresponding mechanical responses, suitable for educational projects or prototype systems involving color-based navigation or interaction.
+    - Connected via Raspberry Pi CSI port.
 
-## 🧱 Hardware Wiring
-    L298N Motor Driver:
-        IN1, IN2 to Raspberry Pi GPIO pins -> Controls motor direction
-        ENA connected through PWM -> Controls motor speed
-        6V DC motor connected to OUT1 and OUT2
+## 📦 Project Folder Structure
+    Lowgan/
+    ├── 3D Models/           # STL files for chassis and mounts
+    ├── Source/
+    │   ├── task1.py
+    │   ├── task2.py
+    │   └── task3.py
+    ├── Team Photos/         # Project documentation photos
+    ├── Video/               # Vehicle demonstration recordings
+    ├── Wiring/              # Electrical diagrams and schematics
+    └── README.md            # Project documentation
 
-    Servo Motor:
-        PWM control wire connected to Raspberry Pi PWM pin -> Front-wheel steering control
-        Powered from 5V rail
+## 🛠️ Engineering Highlights
+    - System Design: Embedded Raspberry Pi controller running vision processing and motor control.
+    - Power System: Efficient LiPo battery with proper voltage regulation.
+    - Motor Control: PWM-based speed and direction via L298N driver.
+    - Obstacle Detection: Camera-based with lightweight OpenCV processing.
+    - Mechanical: Lightweight 3D-printed chassis with balanced weight distribution.
+    - Electrical: Compact wiring with power isolation for reliability.
+    - Software: Modular Python scripts for maintainability and tuning.
+    - Testing: Independent and integrated testing ensures stable performance.
+    - Calibration: Simple routines adapt to light and surface variations.
 
-    Color Sensor:
-        Connect via I2C (SDA, SCL) -> Color detection to switch tasks
+## 🧠 Learning Outcomes
+Lowgan is a hands-on robotics platform demonstrating:
 
-    Camera Module:
-        Use the CSI port on Raspberry Pi -> Direct ribbon connection to Pi
+    - PID and PWM motor control.
+    - Real-time computer vision with OpenCV.
+    - Embedded I2C sensor integration.
+    - Autonomous navigation with task switching.
+    - Practical AI-mechatronics applications.
 
-##  📦 Folder Structure
-    📁 Lowgan/
-    ├── 📁 3D Models/           # STL files for chassis and mounting
-    ├── 📁 Source/
-    │   ├── 📁 task1.py
-    │   ├── 📁 task2.py
-    │   └── 📁 task3.py
-    ├── 📁 Team Photos/         # Documentation photos
-    ├── 📁 Video/               # Recording of the vehicle in action
-    ├── 📁 Wiring/              # Diagrams and schematics
-    └── 📄 README.md            # Project description and documentation
-
-## 🧠 Learning Impact
-    This project is a practical implementation of autonomous robotics concepts including:
-        - PID control and PWM
-        - Computer vision using OpenCV
-        - Embedded I2C sensor integration
-        - Parallel parking and navigation logic
-        - Task switching based on environmental cues
-
-It bridges theory and practice in AI-driven mechatronics and provides a hands-on learning experience in robotics and embedded systems.
+Built with ❤️ by Team Lowgan — WRO 2025
