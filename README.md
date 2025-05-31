@@ -145,16 +145,16 @@ This repository includes all resources needed to build, understand, and replicat
     - Connected via Raspberry Pi CSI port.
 
 ## 📦 Project Folder Structure
-    Lowgan/
-    ├── 3D Models/           # STL files for chassis and mounts
-    ├── Source/
-    │   ├── task1.py
-    │   ├── task2.py
-    │   └── task3.py
-    ├── Team Photos/         # Project documentation photos
-    ├── Video/               # Vehicle demonstration recordings
-    ├── Wiring/              # Electrical diagrams and schematics
-    └── README.md            # Project documentation
+    📁 Lowgan/
+    ├── 📁 3D Models/           # STL files for chassis and mounts
+    ├── 📁 Source/
+    │   ├── 📁 task1.py
+    │   ├── 📁 task2.py
+    │   └── 📁 task3.py
+    ├── 📁 Team Photos/         # Project documentation photos
+    ├── 📁 Video/               # Vehicle demonstration recordings
+    ├── 📁 Wiring/              # Electrical diagrams and schematics
+    └── 📄 README.md            # Project documentation
 
 ## 🛠️ Engineering Highlights
 - **System Design**: Embedded Raspberry Pi controller running vision processing and motor control.
