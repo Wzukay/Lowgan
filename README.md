@@ -24,22 +24,22 @@ Lowgan is a small, AI-powered autonomous vehicle based on the Raspberry Pi 5 pla
 The software driving the vehicle includes several Python-based modules for motor control, image processing, and sensor data fusion.
 
 ## 🔩 Hardware Components
-Lowgan combines precision hardware with flexible embedded software. The complete electromechanical setup includes:
-    - **Raspberry Pi 5**: 	Main processor running Raspberry PI OS and all AI/logic systems
-    - **L298N Motor Driver**: Controls the rear 6V DC motor using PWM for speed and direction control
-    - **SG90 Servo Motor**: Attached to the front wheels, controls the steering angle using PWM
-    - **Camera Module**: Provides real-time video for computer vision-based navigation
-    - **TCS34725 Color Sensor**: Detects color transitions on the mat to signal task changes and assists with navigation
-    - **Power Supply**: A regulated battery pack powers the entire vehicle
-    - **3D Chassis**: 3D printed using custom-designed STL files available in the `/3D Models` folder
+    Lowgan combines precision hardware with flexible embedded software. The complete electromechanical setup includes:
+        - Raspberry Pi 5: 	Main processor running Raspberry PI OS and all AI/logic systems
+        - L298N Motor Driver: Controls the rear 6V DC motor using PWM for speed and direction control
+        - SG90 Servo Motor: Attached to the front wheels, controls the steering angle using PWM
+        - Camera Module: Provides real-time video for computer vision-based navigation
+        - TCS34725 Color Sensor**: Detects color transitions on the mat to signal task changes and assists with navigation
+        - Power Supply: A regulated battery pack powers the entire vehicle
+        - 3D Chassis: 3D printed using custom-designed STL files available in the `/3D Models` folder
 
 ## 🧰 Software Modules
 The codebase is structured into several modules, each responsible for a key aspect of the vehicle’s behavior:
 
 ## 🔁 System Integration
 The Raspberry Pi 5 runs Raspberry Pi OS, and all scripts are written in Python 3.
-The modules interact as follows:
-    Camera Input + Color Sensor Input -- > Sensor Fusion --> Vision Processing --> Motion Planning & Decisions per Task --> Servo Motor + DC Motor Controller
+    The modules interact as follows:
+        Camera Input + Color Sensor Input -- > Sensor Fusion --> Vision Processing --> Motion Planning & Decisions per Task --> Servo Motor + DC Motor Controller
 
 
 ## 💻 Code Overview
