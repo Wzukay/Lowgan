@@ -45,25 +45,8 @@ The codebase is structured into several modules, each responsible for a key aspe
 
 The Raspberry Pi 5 runs Raspberry Pi OS, and all scripts are written in Python 3.
 The modules interact as follows:
-    +--------------------+             +-------------------------+
-    |   Camera Input     |   ---->     |   Vision Processing     |
-    +---------+----------+             +------------+------------+
-                                                    |
-                                                    v
-    +---------------------+             +------------------------+
-    |  Color Sensor Input |  ---->      |     Sensor Fusion      |
-    +---------------------+             +-----------+------------+
-                                                |
-                                                v
-                                +-------------------------------+
-                                |   Motion Planning & Decisions |
-                                +---------------+---------------+
-                                                |
-            +----------------------------------+---------------------------------+
-            |                                                                      |
-    +-------------------+                                          +-------------------------+
-    |   Servo Motor     |                                          |    DC Motor Controller  |
-    +-------------------+                                          +-------------------------+
+    Camera Input + Color Sensor Input -- > Sensor Fusion --> Vision Processing --> Motion Planning & Decisions per Task --> Servo Motor + DC Motor Controller
+
 
 ## 💻 Code Overview
 
