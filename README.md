@@ -25,13 +25,14 @@ The software driving the vehicle includes several Python-based modules for motor
 
 ## 🔩 Hardware Components
 Lowgan combines precision hardware with flexible embedded software. The complete electromechanical setup includes:
-        - Raspberry Pi 5: 	Main processor running Raspberry PI OS and all AI/logic systems
-        - L298N Motor Driver: Controls the rear 6V DC motor using PWM for speed and direction control
-        - SG90 Servo Motor: Attached to the front wheels, controls the steering angle using PWM
-        - Camera Module: Provides real-time video for computer vision-based navigation
-        - TCS34725 Color Sensor: Detects color transitions on the mat to signal task changes and assists with navigation
-        - Power Supply: A regulated battery pack powers the entire vehicle
-        - 3D Chassis: 3D printed using custom-designed STL files available in the `/3D Models` folder
+
+    - Raspberry Pi 5: 	Main processor running Raspberry PI OS and all AI/logic systems
+    - L298N Motor Driver: Controls the rear 6V DC motor using PWM for speed and direction control
+    - SG90 Servo Motor: Attached to the front wheels, controls the steering angle using PWM
+    - Camera Module: Provides real-time video for computer vision-based navigation
+    - TCS34725 Color Sensor: Detects color transitions on the mat to signal task changes and assists with navigation
+    - Power Supply: A regulated battery pack powers the entire vehicle
+    - 3D Chassis: 3D printed using custom-designed STL files available in the `/3D Models` folder
 
 ## 🔬 Research and Engineering Considerations
 Designing Lowgan involved comprehensive research and engineering analysis to ensure realistic, stable, and efficient autonomous navigation on a small scale. Key aspects included:
