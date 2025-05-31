@@ -1,11 +1,9 @@
 # 🤖 Lowgan - AI-Powered Autonomous Vehicle Navigation System
-
 Welcome to the official repository of Lowgan, an advanced robotics solution developed for the WRO 2025 season. This project showcases the fusion of embedded intelligence, computer vision, and sensor integration in a custom-built robotic vehicle designed to autonomously navigate a defined game mat environment. Developed by a passionate team of robotics enthusiasts, Lowgan is capable of tackling real-world driving challenges at a small scale.
 
 This repository contains all necessary resources to build, understand, and replicate the project: from hardware schematics and STL models, to Python-based control systems and AI modules.
 
 ## 🧠 Project Description
-
 Lowgan is a small, AI-powered autonomous vehicle based on the Raspberry Pi 5 platform. The vehicle is designed to perform three sequential, progressively complex driving tasks, autonomously and without human intervention, using onboard computation and sensor feedback:
 
 1. **Stage 1 - Circular Driving Around the Center**:
@@ -26,30 +24,25 @@ Lowgan is a small, AI-powered autonomous vehicle based on the Raspberry Pi 5 pla
 The software driving the vehicle includes several Python-based modules for motor control, image processing, and sensor data fusion.
 
 ## 🔩 Hardware Components
-
 Lowgan combines precision hardware with flexible embedded software. The complete electromechanical setup includes:
-
-- **Raspberry Pi 5**: 	Main processor running Raspberry PI OS and all AI/logic systems
-- **L298N Motor Driver**: Controls the rear 6V DC motor using PWM for speed and direction control
-- **SG90 Servo Motor**: Attached to the front wheels, controls the steering angle using PWM
-- **Camera Module**: Provides real-time video for computer vision-based navigation
-- **TCS34725 Color Sensor**: Detects color transitions on the mat to signal task changes and assists with navigation
-- **Power Supply**: A regulated battery pack powers the entire vehicle
-- **3D Chassis**: 3D printed using custom-designed STL files available in the `/3D Models` folder
+    - **Raspberry Pi 5**: 	Main processor running Raspberry PI OS and all AI/logic systems
+    - **L298N Motor Driver**: Controls the rear 6V DC motor using PWM for speed and direction control
+    - **SG90 Servo Motor**: Attached to the front wheels, controls the steering angle using PWM
+    - **Camera Module**: Provides real-time video for computer vision-based navigation
+    - **TCS34725 Color Sensor**: Detects color transitions on the mat to signal task changes and assists with navigation
+    - **Power Supply**: A regulated battery pack powers the entire vehicle
+    - **3D Chassis**: 3D printed using custom-designed STL files available in the `/3D Models` folder
 
 ## 🧰 Software Modules
-
 The codebase is structured into several modules, each responsible for a key aspect of the vehicle’s behavior:
 
 ## 🔁 System Integration
-
 The Raspberry Pi 5 runs Raspberry Pi OS, and all scripts are written in Python 3.
 The modules interact as follows:
     Camera Input + Color Sensor Input -- > Sensor Fusion --> Vision Processing --> Motion Planning & Decisions per Task --> Servo Motor + DC Motor Controller
 
 
 ## 💻 Code Overview
-
     The software driving the Lowgan autonomous vehicle is organized into modular Python scripts to ensure maintainability, scalability, and clarity. The codebase is designed to interface directly with the vehicle’s hardware components, process sensory data, and implement AI-based navigation logic for each stage of the challenge.
 
     task1.py : 
@@ -138,40 +131,39 @@ The modules interact as follows:
                 This code serves as a basic framework for color-responsive robotics, enabling real-time color tracking with corresponding mechanical responses, suitable for educational projects or prototype systems involving color-based navigation or interaction.
 
 ## 🧱 Hardware Wiring
+L298N Motor Driver:
+    IN1, IN2 to Raspberry Pi GPIO pins -> Controls motor direction
+    ENA connected through PWM -> Controls motor speed
+    6V DC motor connected to OUT1 and OUT2
 
-    L298N Motor Driver:
-        IN1, IN2 to Raspberry Pi GPIO pins -> Controls motor direction
-        ENA connected through PWM -> Controls motor speed
-        6V DC motor connected to OUT1 and OUT2
+Servo Motor:
+    PWM control wire connected to Raspberry Pi PWM pin -> Front-wheel steering control
+    Powered from 5V rail
 
-    Servo Motor:
-        PWM control wire connected to Raspberry Pi PWM pin -> Front-wheel steering control
-        Powered from 5V rail
+Color Sensor:
+    Connect via I2C (SDA, SCL) -> Color detection to switch tasks
 
-    Color Sensor:
-        Connect via I2C (SDA, SCL) -> Color detection to switch tasks
-
-    Camera Module:
-        Use the CSI port on Raspberry Pi -> Direct ribbon connection to Pi
+Camera Module:
+    Use the CSI port on Raspberry Pi -> Direct ribbon connection to Pi
 
 ##  📦 Folder Structure
-    📁 Lowgan/
-    ├── 📁 3D Models/           # STL files for chassis and mounting
-    ├── 📁 Source/
-    │   ├── 📁 task1.py
-    │   ├── 📁 task2.py
-    │   └── 📁 task3.py
-    ├── 📁 Team Photos/         # Documentation photos
-    ├── 📁 Video/               # Recording of the vehicle in action
-    ├── 📁 Wiring/              # Diagrams and schematics
-    └── 📄 README.md            # Project description and documentation
+📁 Lowgan/
+├── 📁 3D Models/           # STL files for chassis and mounting
+├── 📁 Source/
+│   ├── 📁 task1.py
+│   ├── 📁 task2.py
+│   └── 📁 task3.py
+├── 📁 Team Photos/         # Documentation photos
+├── 📁 Video/               # Recording of the vehicle in action
+├── 📁 Wiring/              # Diagrams and schematics
+└── 📄 README.md            # Project description and documentation
 
 ## 🧠 Learning Impact
-    This project is a practical implementation of autonomous robotics concepts including:
-        - PID control and PWM
-        - Computer vision using OpenCV
-        - Embedded I2C sensor integration
-        - Parallel parking and navigation logic
-        - Task switching based on environmental cues
+This project is a practical implementation of autonomous robotics concepts including:
+    - PID control and PWM
+    - Computer vision using OpenCV
+    - Embedded I2C sensor integration
+    - Parallel parking and navigation logic
+    - Task switching based on environmental cues
 
-    It bridges theory and practice in AI-driven mechatronics and provides a hands-on learning experience in robotics and embedded systems.
+It bridges theory and practice in AI-driven mechatronics and provides a hands-on learning experience in robotics and embedded systems.
