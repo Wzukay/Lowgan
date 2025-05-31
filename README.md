@@ -29,7 +29,7 @@ The software driving the vehicle includes several Python-based modules for motor
 
 Lowgan combines precision hardware with flexible embedded software. The complete electromechanical setup includes:
 
-- **Raspberry Pi 5**: 	Main processor running Raspberry PI Os and all AI/logic systems
+- **Raspberry Pi 5**: 	Main processor running Raspberry PI OS and all AI/logic systems
 - **L298N Motor Driver**: Controls the rear 6V DC motor using PWM for speed and direction control
 - **SG90 Servo Motor**: Attached to the front wheels, controls the steering angle using PWM
 - **Camera Module**: Provides real-time video for computer vision-based navigation
@@ -168,10 +168,10 @@ The modules interact as follows:
 
 ## 🧠 Learning Impact
     This project is a practical implementation of autonomous robotics concepts including:
-        PID control and PWM
-        Computer vision using OpenCV
-        Embedded I2C sensor integration
-        Parallel parking and navigation logic
-        Task switching based on environmental cues
+        - PID control and PWM
+        - Computer vision using OpenCV
+        - Embedded I2C sensor integration
+        - Parallel parking and navigation logic
+        - Task switching based on environmental cues
 
     It bridges theory and practice in AI-driven mechatronics and provides a hands-on learning experience in robotics and embedded systems.
