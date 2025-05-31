@@ -59,26 +59,22 @@ Models are exported as STL files and stored in /3D Models. Modular design allows
 
 ## 🚗 Mobility Management
 - Components:
-
     - DC Motor: Drives rear wheels, powered by Li-ion battery, controlled by PWM signals.
     - L298N Motor Driver: Interfaces motor with Raspberry Pi, managing speed and direction.
     - Raspberry Pi 5: Processes commands and sensor data to control motion.
 
 - Control Logic:
-
     - Motor speed controlled dynamically via PWM.
     - Direction managed by GPIO pins, enabling forward, reverse, and turns.
     - Supports scripted autonomous routines or remote manual control.
 
 - Mobility Features:
-
     - Differential drive system for sharp turns.
     - Speed limiting to prevent overload.
     - Failsafe to stop motors on signal loss or faults.
 
 ## 🧱 Obstacle Detection and Avoidance
-Lowgan uses classical computer vision (OpenCV) for real-time obstacle detection:
-
+- Lowgan uses classical computer vision (OpenCV) for real-time obstacle detection:
     Camera: Front-mounted Raspberry Pi camera module captures video feed.
     Vision Processing:
         - Edge detection (Canny) to find contours.
@@ -99,39 +95,31 @@ No heavy AI models are required; the system relies on lightweight, real-time CV.
 - Battery management ensures stable and safe power delivery.
 
 ## 🔁 System Integration
-Runs Raspberry Pi OS on Raspberry Pi 5.
-Python scripts handle:
-
+- Runs Raspberry Pi OS on Raspberry Pi 5.
+- Python scripts handle:
     - Camera and color sensor input.
     - Sensor fusion and vision processing.
     - Motion planning and motor control.
 
-Modular architecture ensures clear data flow and easy maintenance.
+- Modular architecture ensures clear data flow and easy maintenance.
 
 ## 💻 Software Overview
-Lowgan software is modular and Python-based:
-
+- Lowgan software is modular and Python-based:
     - task1.py: Color-based circular navigation using TCS3200 sensor.
     - task2.py: Camera-based obstacle detection and avoidance.
     - task3.py: Combines obstacle avoidance with lateral parking using vision and color data.
-
-task1.py - Key Points:
-
+- task1.py - Key Points:
     - Uses TCS3200 color sensor and servo motor to detect colors (orange, blue, white).
     - Controls servo steering based on color detection.
     - Runs DC motor forward or backward according to color.
     - Implements continuous loop with clean exit on interrupt.
-
-task2.py - Key Points:
-
+- task2.py - Key Points:
     - Processes live camera feed via OpenCV to detect red and green objects.
     - Controls servo based on dominant color detected.
     - Motor speed and direction controlled via PWM.
     - Supports multiple operational states controlled by keyboard input.
     - Runs continuously with graceful shutdown.
-
-task3.py - Key Points:
-
+- task3.py - Key Points:
     - Real-time color tracking of red and green objects.
     - Implements three operational states:
         State 0: Visual detection only.
