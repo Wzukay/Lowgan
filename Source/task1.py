@@ -14,7 +14,7 @@ PIN_OUT = 17  # Frequency output pin from the sensor
 
 fa = 165
 fadr = 180
-fast = 130
+fast = 60
 
 lastDirection = -1
 lastValue = -1
@@ -104,19 +104,27 @@ def set_step(w1, w2):
     IN1.value = w1
     IN2.value = w2
 
-def step_motor(steps, direction=1, delay=0.1, speed=0.5):
-    print("Motor Runs")
-    """Run the DC motor for a number of steps with given direction and speed."""
-    ENA.value = speed  # Set motor speed using PWM (0 to 1)
-    for _ in range(steps):
-        set_step(0,1)
-        time.sleep(delay)
-    ENA.value = 0  # Stop motor after steps completed
+# === DC MOTOR CONTROL FUNCTIONS - FIXED ===
 
-# === MAIN EXECUTION LOOP ===
+def ensure_motor_running():
+    """Asigura-te ca motorul merge continuu - DOAR daca nu merge deja"""
+    if ENA.value != .8:  # Verifica daca PWM-ul nu e setat corect
+        ENA.value = .8  # Seteaza viteza
+    
+    if IN1.value != 0 or IN2.value != 1:
+        set_step(0, 1)    # Seteaza direc?ia
+
+# === MAIN EXECUTION LOOP - OPTIMIZED ===
 
 try:
     print("Starting color sensor reading, servo, and DC motor control...")
+    
+    # Porneste motorul continuu la Inceput
+    ENA.value = .8
+    set_step(0, 1)    
+    
+    loop_counter = 0
+    
     while True:
         # Read color sensor frequencies
         red, green, blue = read_rgb()
@@ -132,6 +140,7 @@ try:
                  lastColor = "BLUE/ORANGE"
             elif lastColor == "":
                 lastColor = "ORANGE"
+                
         
             SetAngle(fadr)  # Start moving to final angle
             lastDirection = 1
@@ -144,22 +153,35 @@ try:
                 lastColor = "BLUE"
             
             SetAngle(fast)  # Start moving to side angle
+            lastDirection = 0
 
         elif color == "WHITE":
-            print("Color WHITE detected (no servo or motor action)")
+            print("Color WHITE detected")
             if lastColor == "ORANGE/BLUE" or lastColor == "BLUE/ORANGE":
                 print("changed in color after both")
-            SetAngle(fa)
+                
+            if lastDirection == 0:
+                SetAngle(150)
+            elif lastDirection == 1:
+                SetAngle(90)
+            elif lastDirection == -1:
+                SetAngle(180)
             lastDirection = -1
+        
+        # Verifica motorul doar la fiecare 20 de iteratii pentru a evita interferentele
+        loop_counter += 1
+        if loop_counter % 15 == 0:
+            ensure_motor_running()
             
-        step_motor(steps=50, direction=-1, speed=.65)
-
+        time.sleep(0.05)
         
 except KeyboardInterrupt:
     print("Manual stop by user.")
 
 finally:
-    # Cleanup: stop servo and release GPIO
+    # Cleanup: stop motor, servo and release GPIO
+    ENA.value = 0  # Opreste motorul
+    set_step(0, 0)  # Opreste semnalele de directie
     stop_servo()
     lgpio.gpiochip_close(h)
-    print("PWM stopped and GPIO released.")
+    print("Motor stopped, PWM stopped and GPIO released.")
