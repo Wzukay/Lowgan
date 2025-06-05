@@ -1,6 +1,6 @@
 import time
 import lgpio
-from gpiozero import Servo, OutputDevice, PWMOutputDevice
+from gpiozero import AngularServo, OutputDevice, PWMOutputDevice
 from time import sleep
 
 # === PIN AND CONSTANT CONFIGURATION ===
@@ -12,28 +12,24 @@ PIN_S2 = 27
 PIN_S3 = 22
 PIN_OUT = 17  # Frequency output pin from the sensor
 
+fa = 165
+fadr = 180
+fast = 130
+
+lastDirection = -1
+lastValue = -1
+lastColor = ""
+
 # Pin for controlling the servo motor
-servo = Servo(18, min_pulse_width=500/1_000_000, max_pulse_width=2000/1_000_000)
+servo = AngularServo(12, min_angle = 0, max_angle =180, min_pulse_width=500/1_000_000, max_pulse_width=2000/1_000_000)
 
 # Pins for controlling the DC motor
-IN1 = OutputDevice(14)
+IN1 = OutputDevice(14)                            
 IN2 = OutputDevice(15)
-ENA = PWMOutputDevice(17)  # ENA for Motor 1 PWM speed control
+ENA = PWMOutputDevice(26)  # ENA for Motor 1 PWM speed control
 
 # Color detection tolerance threshold
 COLOR_TOLERANCE = 200
-
-# Step sequence for DC motor control (simple on/off pattern here)
-step_sequence = [
-    [1, 0],
-    [1, 0],
-    [1, 0],
-    [1, 0],
-    [1, 0],
-    [1, 0],
-    [1, 0],
-    [1, 0]
-]
 
 # === GPIO INITIALIZATION ===
 
@@ -57,6 +53,10 @@ def set_color_filter(s2, s3):
     """Set color filter on sensor using pins S2 and S3."""
     lgpio.gpio_write(h, PIN_S2, s2)
     lgpio.gpio_write(h, PIN_S3, s3)
+    
+def SetAngle(angle):
+    servo.angle = angle
+    print(angle)
 
 def read_frequency(duration=0.1):
     """Measure frequency output from color sensor over given duration."""
@@ -104,21 +104,19 @@ def set_step(w1, w2):
     IN1.value = w1
     IN2.value = w2
 
-def step_motor(steps, direction=1, delay=0.01, speed=1.0):
+def step_motor(steps, direction=1, delay=0.1, speed=0.5):
+    print("Motor Runs")
     """Run the DC motor for a number of steps with given direction and speed."""
     ENA.value = speed  # Set motor speed using PWM (0 to 1)
     for _ in range(steps):
-        seq = step_sequence if direction > 0 else reversed(step_sequence)
-        for step in seq:
-            set_step(*step)
-            sleep(delay)
+        set_step(0,1)
+        time.sleep(delay)
     ENA.value = 0  # Stop motor after steps completed
 
 # === MAIN EXECUTION LOOP ===
 
 try:
     print("Starting color sensor reading, servo, and DC motor control...")
-
     while True:
         # Read color sensor frequencies
         red, green, blue = read_rgb()
@@ -130,28 +128,33 @@ try:
 
         # Control servo based on detected color
         if color == "ORANGE":
-            print("Turn servo RIGHT")
-            servo.value = 1       # Right position
-            time.sleep(1)
-            servo.value = -0.12   # Near center
-
-            # Run DC motor forward when ORANGE detected
-            print("Run DC motor forward")
-            step_motor(steps=100, direction=1, speed=0.8)
-
+            if lastColor == "BLUE":
+                 lastColor = "BLUE/ORANGE"
+            elif lastColor == "":
+                lastColor = "ORANGE"
+        
+            SetAngle(fadr)  # Start moving to final angle
+            lastDirection = 1
+            
         elif color == "BLUE":
             print("Turn servo LEFT")
-            servo.value = -1      # Left position
-            time.sleep(1)
-            servo.value = 0.5     # Near center
+            if lastColor == "ORANGE":
+                lastColor = "ORANGE/BLUE"
+            elif lastColor == "":
+                lastColor = "BLUE"
+            
+            SetAngle(fast)  # Start moving to side angle
 
-            # Run DC motor backward when BLUE detected
-            print("Run DC motor backward")
-            step_motor(steps=100, direction=-1, speed=0.8)
-
-        else:
+        elif color == "WHITE":
             print("Color WHITE detected (no servo or motor action)")
+            if lastColor == "ORANGE/BLUE" or lastColor == "BLUE/ORANGE":
+                print("changed in color after both")
+            SetAngle(fa)
+            lastDirection = -1
+            
+        step_motor(steps=50, direction=-1, speed=.65)
 
+        
 except KeyboardInterrupt:
     print("Manual stop by user.")
 
