@@ -10,16 +10,11 @@ This repository includes all resources needed to build, understand, and replicat
         Maintains a smooth circular path at a fixed radius.
         Dynamically adjusts steering and motor speed for stability.
 
-    - Stage 2: Obstacle Avoidance
+    - Stage 2: Obstacle Avoidance and Parallel Parking
         Detects cube-shaped obstacles using front camera vision.
         Calculates safe trajectories and avoids collisions in real time.
         Uses sensor fusion and precise motor control for responsive maneuvering.
-
-    - Stage 3: Lateral Parking
-        Identifies parking zones using side clearances detected by vision and color sensors.
-        Executes lateral (parallel) parking similar to urban driving.
-        Combines vision input and sensor data to measure space and control parking steps.
-
+        
 - The vehicle’s software consists of modular Python scripts that manage motor control, image processing, and sensor fusion for autonomous navigation.
 
 ## 🔩 Hardware Components
@@ -118,16 +113,6 @@ This repository includes all resources needed to build, understand, and replicat
     - Supports multiple operational states controlled by keyboard input.
     - Runs continuously with graceful shutdown.
 
-- task3.py - Key Points:
-    - Real-time color tracking of red and green objects.
-    - Implements three operational states:
-        State 0: Visual detection only.
-        State 1: Active motor and servo control based on detected colors.
-        State 2: Idle/no control.
-    - User input switches between states.
-    - Controls DC motor direction and servo position with PWM.
-    - Clean exit and resource release supported.
-
 ## 🧱 Hardware Wiring Summary
 - L298N Motor Driver:
     - IN1, IN2: Raspberry Pi GPIO for motor direction.
@@ -149,8 +134,7 @@ This repository includes all resources needed to build, understand, and replicat
     ├── 📁 3D Models/           # STL files for chassis and mounts
     ├── 📁 Source/
     │   ├── 📁 task1.py
-    │   ├── 📁 task2.py
-    │   └── 📁 task3.py
+    │   └── 📁 task2.py
     ├── 📁 Team Photos/         # Project documentation photos
     ├── 📁 Video/               # Vehicle demonstration recordings
     ├── 📁 Other/              # Electrical diagrams and schematics
