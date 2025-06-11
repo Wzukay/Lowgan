@@ -1,187 +1,132 @@
 import time
-import lgpio
-from gpiozero import AngularServo, OutputDevice, PWMOutputDevice
-from time import sleep
+import pigpio
+from gpiozero import PWMOutputDevice, DigitalOutputDevice, DigitalInputDevice
 
-# === PIN AND CONSTANT CONFIGURATION ===
+# Initialize pigpio
+pi = pigpio.pi()
 
-# Pins for the TCS3200 color sensor
-PIN_S0 = 23
-PIN_S1 = 24
-PIN_S2 = 27
-PIN_S3 = 22
-PIN_OUT = 17  # Frequency output pin from the sensor
+# --- Color sensor pin setup (TCS3200) ---
+S0 = DigitalOutputDevice(23)
+S1 = DigitalOutputDevice(24)
+S0.on()
+S1.off()
+S2 = DigitalOutputDevice(27)
+S3 = DigitalOutputDevice(22)
+OUT = DigitalInputDevice(17)
 
-fa = 165
-fadr = 180
-fast = 60
+pi.set_mode(26, pigpio.OUTPUT)
+pi.set_mode(14, pigpio.OUTPUT)
 
-lastDirection = -1
-lastValue = -1
-lastColor = ""
+# --- Angular servo control via pigpio ---
+SERVO_GPIO = 2
+CENTER_PW = 1400  # Âµs for center
+LEFT_PW = 1800  # Âµs for left turn
+RIGHT_PW = 1200    # Âµs for right turn
 
-# Pin for controlling the servo motor
-servo = AngularServo(12, min_angle = 0, max_angle =180, min_pulse_width=500/1_000_000, max_pulse_width=2000/1_000_000)
+# --- State tracking
+lastColor = None
+has_turned = False
+left = -1
 
-# Pins for controlling the DC motor
-IN1 = OutputDevice(14)                            
-IN2 = OutputDevice(15)
-ENA = PWMOutputDevice(26)  # ENA for Motor 1 PWM speed control
+# --- TCS3200 color reading ---
+def read_color_frequency(s2_val, s3_val):
+    S2.value = s2_val
+    S3.value = s3_val
 
-# Color detection tolerance threshold
-COLOR_TOLERANCE = 200
-
-# === GPIO INITIALIZATION ===
-
-# Open connection to GPIO chip 0 for color sensor
-h = lgpio.gpiochip_open(0)
-
-# Configure sensor pins as outputs or input
-lgpio.gpio_claim_output(h, PIN_S0)
-lgpio.gpio_claim_output(h, PIN_S1)
-lgpio.gpio_claim_output(h, PIN_S2)
-lgpio.gpio_claim_output(h, PIN_S3)
-lgpio.gpio_claim_input(h, PIN_OUT)
-
-# Set sensor output frequency scaling to 100% (maximum frequency)
-lgpio.gpio_write(h, PIN_S0, 1)
-lgpio.gpio_write(h, PIN_S1, 1)
-
-# === HELPER FUNCTIONS FOR COLOR SENSOR ===
-
-def set_color_filter(s2, s3):
-    """Set color filter on sensor using pins S2 and S3."""
-    lgpio.gpio_write(h, PIN_S2, s2)
-    lgpio.gpio_write(h, PIN_S3, s3)
-    
-def SetAngle(angle):
-    servo.angle = angle
-    print(angle)
-
-def read_frequency(duration=0.1):
-    """Measure frequency output from color sensor over given duration."""
-    t_start = time.time()
     count = 0
-    last = lgpio.gpio_read(h, PIN_OUT)
-    
-    while time.time() - t_start < duration:
-        current = lgpio.gpio_read(h, PIN_OUT)
-        if current != last:
-            count += 1
-            last = current
-    
-    freq = count / (2 * duration)  # Calculate frequency in Hz
-    return freq
+    start_time = time.time()
+    timeout = 0.5
 
-def read_rgb():
-    """Read red, green, blue frequency values from sensor."""
-    set_color_filter(0, 0)  # Red filter
-    red = read_frequency()
-    set_color_filter(1, 1)  # Green filter
-    green = read_frequency()
-    set_color_filter(0, 1)  # Blue filter
-    blue = read_frequency()
-    return red, green, blue
+    while count < 10 and (time.time() - start_time < timeout):
+        OUT.wait_for_inactive()
+        OUT.wait_for_active()
+        count += 1
 
-def detect_color(red, green, blue):
-    """Determine color from RGB frequencies with tolerance."""
-    if red > blue + COLOR_TOLERANCE:
-        return "ORANGE"
-    elif blue > red + COLOR_TOLERANCE and blue < 40000:
-        return "BLUE"
+    duration = time.time() - start_time
+    return 10 / duration if duration > 0 else 0
+
+def get_color():
+    red = read_color_frequency(0, 0)
+    blue = read_color_frequency(0, 1)
+    green = read_color_frequency(1, 1)
+
+    print(f"R: {red:.1f}, G: {green:.1f}, B: {blue:.1f}")
+
+    if red>green and red>blue:
+        return "orange"
+    elif blue>red and blue>green and blue<4000:
+        return "blue"
     else:
-        return "WHITE"
+        return "white"
 
-def stop_servo():
-    """Detach servo to stop PWM signals."""
-    print("[DEBUG] Stop servo")
-    servo.detach()
+# --- Servo angle control ---
+def set_servo_pulse(pulse_width):
+    pi.set_servo_pulsewidth(SERVO_GPIO, pulse_width)
 
-# === DC MOTOR CONTROL FUNCTIONS ===
+def steer_center():
+    set_servo_pulse(CENTER_PW)
+    print("Center")
 
-def set_step(w1, w2):
-    """Set motor driver input pins."""
-    IN1.value = w1
-    IN2.value = w2
+def steer_left():
+    set_servo_pulse(LEFT_PW)
+    print("Left")
 
-# === DC MOTOR CONTROL FUNCTIONS - FIXED ===
+def steer_right():
+    set_servo_pulse(RIGHT_PW)
+    print("Righjt")
+
+def steer(ang):
+    set_servo_pulse(ang)
+    print(ang)
+    
+def set_motor_direction(forward=True):
+    pi.write(14, 0 if forward else 1)
 
 def ensure_motor_running():
-    """Asigura-te ca motorul merge continuu - DOAR daca nu merge deja"""
-    if ENA.value != .8:  # Verifica daca PWM-ul nu e setat corect
-        ENA.value = .8  # Seteaza viteza
+    pi.set_PWM_dutycycle(26, 180)  # Full speed (255 = 100% duty cycle)
+    set_motor_direction(True)
     
-    if IN1.value != 0 or IN2.value != 1:
-        set_step(0, 1)    # Seteaza direc?ia
-
-# === MAIN EXECUTION LOOP - OPTIMIZED ===
-
+# --- Main loop ---
 try:
-    print("Starting color sensor reading, servo, and DC motor control...")
-    
-    # Porneste motorul continuu la Inceput
-    ENA.value = .8
-    set_step(0, 1)    
-    
-    loop_counter = 0
+    ensure_motor_running()
     
     while True:
-        # Read color sensor frequencies
-        red, green, blue = read_rgb()
-        print(f"Red: {red:.1f} Hz | Green: {green:.1f} Hz | Blue: {blue:.1f} Hz")
-        
-        # Detect color
-        color = detect_color(red, green, blue)
-        print(f"Detected {color}")
+        color = get_color()
+        print(f"Detected: {color}")
 
-        # Control servo based on detected color
-        if color == "ORANGE":
-            if lastColor == "BLUE":
-                 lastColor = "BLUE/ORANGE"
-            elif lastColor == "":
-                lastColor = "ORANGE"
-                
+        if not has_turned:
+            if color == "blue":
+                lastColor = "blue"
+                print("Turning left")
+                steer_right()
+                left = 1
+                has_turned = True
+            elif color == "orange":
+                lastColor = "orange"
+                print("Turning right")
+                steer_left()
+                left = 0
+                has_turned = True
+            elif color == "white":
+                print("White detected â€” going straight")
+                lastColor = ""
+                steer_center()
+                left = -1
+        elif has_turned:
+            if lastColor == "blue" and color == "orange":
+                has_turned = False
+                steer_center()
+            elif lastColor == "orange" and color == "blue":
+                has_turned = False
+                steer_center()
         
-            SetAngle(fadr)  # Start moving to final angle
-            lastDirection = 1
-            
-        elif color == "BLUE":
-            print("Turn servo LEFT")
-            if lastColor == "ORANGE":
-                lastColor = "ORANGE/BLUE"
-            elif lastColor == "":
-                lastColor = "BLUE"
-            
-            SetAngle(fast)  # Start moving to side angle
-            lastDirection = 0
+        # Always move forward
+        ensure_motor_running()
 
-        elif color == "WHITE":
-            print("Color WHITE detected")
-            if lastColor == "ORANGE/BLUE" or lastColor == "BLUE/ORANGE":
-                print("changed in color after both")
-                
-            if lastDirection == 0:
-                SetAngle(150)
-            elif lastDirection == 1:
-                SetAngle(90)
-            elif lastDirection == -1:
-                SetAngle(180)
-            lastDirection = -1
-        
-        # Verifica motorul doar la fiecare 20 de iteratii pentru a evita interferentele
-        loop_counter += 1
-        if loop_counter % 15 == 0:
-            ensure_motor_running()
-            
-        time.sleep(0.05)
-        
+        time.sleep(0.4)
+
 except KeyboardInterrupt:
-    print("Manual stop by user.")
-
-finally:
-    # Cleanup: stop motor, servo and release GPIO
-    ENA.value = 0  # Opreste motorul
-    set_step(0, 0)  # Opreste semnalele de directie
-    stop_servo()
-    lgpio.gpiochip_close(h)
-    print("Motor stopped, PWM stopped and GPIO released.")
+    print("Stopping...")
+    pi.set_servo_pulsewidth(26, 0)
+    pi.set_servo_pulsewidth(SERVO_GPIO, 0)  # Stop servo signal
+    pi.stop()
