@@ -1,5 +1,5 @@
 ## 🤖 Lowgan - AI-Powered Autonomous Vehicle Navigation System
-Welcome to the official repository of Lowgan, an advanced autonomous vehicle project developed for the WRO 2025 season. Lowgan integrates embedded intelligence, computer vision, and sensor fusion in a custom robotic car built on Raspberry Pi 5, designed to autonomously navigate a defined game mat. This system addresses realistic small-scale driving challenges through AI and real-time sensing.
+Welcome to the official repository of Lowgan, an advanced autonomous vehicle project developed for the WRO 2025 season. Lowgan integrates embedded intelligence, computer vision, and sensor fusion in a custom robotic car built on Raspberry Pi 4, designed to autonomously navigate a defined game mat. This system addresses realistic small-scale driving challenges through AI and real-time sensing.
 
 This repository includes all resources needed to build, understand, and replicate Lowgan: hardware schematics, 3D models, and Python-based control and AI modules.
 
@@ -19,11 +19,11 @@ This repository includes all resources needed to build, understand, and replicat
 
 ## 🔩 Hardware Components
 - Lowgan integrates precise hardware with flexible software:
-    - Raspberry Pi 5: Main processor running the OS and AI modules.
+    - Raspberry Pi 4: Main processor running the OS and AI modules.
     - L298N Motor Driver: Controls a 6V rear DC motor with PWM for speed and direction.
     - SG90 Servo Motor: Steers the front wheels using PWM.
     - Camera Module: Provides live video for computer vision.
-    - TCS34725 Color Sensor: Detects mat colors to trigger task transitions and aid navigation.
+    - TCS3200 Color Sensor: Detects mat colors to trigger task transitions and aid navigation.
     - Battery Pack: Regulated power supply for all components.
     - 3D-Printed Chassis: Custom designed and printed from STL files (in /3D Models).
 
@@ -52,7 +52,7 @@ This repository includes all resources needed to build, understand, and replicat
 - Components:
     - DC Motor: Drives rear wheels, powered by Li-ion battery, controlled by PWM signals.
     - L298N Motor Driver: Interfaces motor with Raspberry Pi, managing speed and direction.
-    - Raspberry Pi 5: Processes commands and sensor data to control motion.
+    - Raspberry Pi 4: Processes commands and sensor data to control motion.
 
 - Control Logic:
     - Motor speed controlled dynamically via PWM.
@@ -82,11 +82,11 @@ This repository includes all resources needed to build, understand, and replicat
 - Powered by a Li-ion battery with regulated voltage.
 - Raspberry Pi manages computing and sensor operation.
 - Motor driver supplies power to the DC motor.
-- Color sensor (TCS34725) and servo motor powered directly from Pi.
+- Color sensor (TCS3200) and servo motor powered directly from Pi.
 - Battery management ensures stable and safe power delivery.
 
 ## 🔁 System Integration
-- Runs Raspberry Pi OS on Raspberry Pi 5.
+- Runs Raspberry Pi OS on Raspberry Pi 4.
 - Python scripts handle:
     - Camera and color sensor input.
     - Sensor fusion and vision processing.
@@ -123,7 +123,7 @@ This repository includes all resources needed to build, understand, and replicat
     - PWM control to Raspberry Pi PWM pin.
     - Powered from 5V rail.
 
-- Color Sensor (TCS34725):
+- Color Sensor (TCS3200):
     - I2C connection (SDA, SCL).
 
 - Camera Module:
