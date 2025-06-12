@@ -4,7 +4,7 @@ Welcome to the official repository of Lowgan, an advanced autonomous vehicle pro
 This repository includes all resources needed to build, understand, and replicate Lowgan: hardware schematics, 3D models, and Python-based control and AI modules.
 
 ## 🧠 Project Overview
-- Lowgan is a compact AI-driven autonomous vehicle running on Raspberry Pi 5. It executes three progressive driving tasks autonomously, relying on onboard computing and sensors:
+- Lowgan is a compact AI-driven autonomous vehicle running on Raspberry Pi 4. It executes three progressive driving tasks autonomously, relying on onboard computing and sensors:
     - Stage 1: Circular Driving Around the Center
         Detects the mat's center using color and visual cues.
         Maintains a smooth circular path at a fixed radius.
