@@ -19,9 +19,9 @@ pi.set_mode(14, pigpio.OUTPUT)
 
 # --- Angular servo control via pigpio ---
 SERVO_GPIO = 2
-CENTER_PW = 1400  # Âµs for center
-LEFT_PW = 1800  # Âµs for left turn
-RIGHT_PW = 1200    # Âµs for right turn
+CENTER_PW = 1400  # µs for center
+LEFT_PW = 1800  # µs for left turn
+RIGHT_PW = 1200    # µs for right turn
 
 # --- State tracking
 lastColor = None
